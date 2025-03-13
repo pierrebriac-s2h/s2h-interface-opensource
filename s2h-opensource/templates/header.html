@@ -1,0 +1,41 @@
+<!-- Speech2Health Header Template -->
+<header class="s2h-header">
+  <div class="s2h-container s2h-header__content">
+    <!-- Logo (lien vers l'accueil) -->
+    <a href="/" class="s2h-logo">
+      <div class="s2h-logo__icon">
+        <img src="/assets/images/logo-s2h.png" alt="Logo Speech2Health" class="s2h-logo__image">
+      </div>
+      <span class="s2h-logo__text">Speech2Health</span>
+    </a>
+    
+    <!-- Navigation principale -->
+    <nav class="s2h-nav">
+      <ul class="s2h-nav__list">
+        <li class="s2h-nav__item"><a href="/pages/explorer/" class="s2h-nav__link">Explorer</a></li>
+        <li class="s2h-nav__item"><a href="/pages/creer-un-test/" class="s2h-nav__link">Créer un test</a></li>
+        <li class="s2h-nav__item"><a href="/pages/evaluer-et-contribuer/" class="s2h-nav__link">Évaluer & Contribuer</a></li>
+        <li class="s2h-nav__item"><a href="/pages/communaute/" class="s2h-nav__link">Communauté</a></li>
+        <li class="s2h-nav__item"><a href="/pages/mon-compte/" class="s2h-nav__link">Mon compte</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- Script pour gestion active de la navigation -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const currentPath = window.location.pathname;
+    const navLinks = document.querySelectorAll('.s2h-nav__link');
+    
+    navLinks.forEach(link => {
+      const href = link.getAttribute('href');
+      // Ajoute la classe active si l'URL courante correspond au lien
+      if (currentPath.includes(href) && href !== '/') {
+        link.classList.add('s2h-nav__link--active');
+      } else if (currentPath === '/' && href === '/') {
+        link.classList.add('s2h-nav__link--active');
+      }
+    });
+  });
+</script>

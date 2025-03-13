@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Événements - Speech2Health</title>
+  <link rel="stylesheet" href="/css/s2h-styles.css">
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const includes = document.querySelectorAll('include');
+      
+      includes.forEach(function(include) {
+        const src = include.getAttribute('src');
+        
+        fetch(src)
+          .then(response => response.text())
+          .then(data => {
+            const div = document.createElement('div');
+            div.innerHTML = data;
+            include.parentNode.replaceChild(div, include);
+          })
+          .catch(error => {
+            console.error('Erreur lors du chargement du fichier ' + src, error);
+          });
+      });
+    });
+  </script>
+</head>
+<body class="s2h-bg-light">
+  <!-- Inclusion du header -->
+  <include src="/templates/header.html"></include>
+  
+  <!-- Onglets de navigation pour la section Communauté -->
+  <div class="s2h-container">
+    <div class="s2h-tabs s2h-mb-lg">
+      <a href="/pages/communaute/evenements.html" class="s2h-tabs__item s2h-tabs__item--active">Événements</a>
+      <a href="/pages/communaute/forum.html" class="s2h-tabs__item">Forum</a>
+    </div>
+  </div>
+  
+  <main>
+    <div class="s2h-container">
+      <!-- En-tête de la page - style centré comme sur l'image -->
+      <div class="s2h-text-center" style="padding: 40px 0;">
+        <h1>Événements de la communauté</h1>
+        <p style="max-width: 800px; margin: 0 auto;">
+          Découvrez les événements organisés par Speech2Health et notre communauté de chercheurs et
+          développeurs. Participez à des webinaires, conférences et ateliers pour améliorer vos
+          connaissances et échanger avec d'autres membres.
+        </p>
+      </div>
+
+      <!-- Filtres et recherche - style comme sur l'image -->
+      <div class="s2h-card" style="border-radius: 16px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); padding: 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <!-- Filtres en forme de boutons pills avec bleu actif -->
+          <div>
+            <button style="background-color: #4A90E2; color: white; border-radius: 20px; padding: 8px 20px; border: none; margin-right: 5px;">Tous</button>
+            <button style="background-color: white; border: 1px solid #e0e0e0; color: black; border-radius: 20px; padding: 8px 20px; margin-right: 5px;">Webinaires</button>
+            <button style="background-color: white; border: 1px solid #e0e0e0; color: black; border-radius: 20px; padding: 8px 20px; margin-right: 5px;">Conférences</button>
+            <button style="background-color: white; border: 1px solid #e0e0e0; color: black; border-radius: 20px; padding: 8px 20px; margin-right: 5px;">Ateliers</button>
+            <button style="background-color: white; border: 1px solid #e0e0e0; color: black; border-radius: 20px; padding: 8px 20px;">Hackathons</button>
+          </div>
+
+          <!-- Recherche comme sur l'image -->
+          <div>
+            <input type="text" placeholder="Rechercher un événement..." style="padding: 8px 15px; border-radius: 20px; border: 1px solid #e0e0e0; width: 250px;">
+          </div>
+        </div>
+      </div>
+
+      <!-- Événements à venir -->
+      <h2 style="margin: 30px 0 20px;">Événements à venir</h2>
+      
+      <!-- Grille d'événements - correspond au style des cartes dans l'image -->
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 40px;">
+        <!-- Événement 1 - Webinaire -->
+        <div class="s2h-card" style="border-radius: 16px; background-color: white; padding: 0; overflow: hidden;">
+          <!-- Entête avec badge et date -->
+          <div style="display: flex; align-items: start; background-color: #f0f7ff; padding: 15px;">
+            <div style="background-color: #e6f0ff; color: #4A90E2; padding: 5px 10px; border-radius: 5px; font-size: 14px; font-weight: bold;">
+              Webinaire
+            </div>
+            <div style="margin-left: auto; text-align: right;">
+              <div style="font-weight: bold; font-size: 24px;">25</div>
+              <div style="font-size: 14px;">Mars<br>2025</div>
+            </div>
+          </div>
+          
+          <!-- Contenu de la carte -->
+          <div style="padding: 20px;">
+            <h3 style="font-size: 18px; margin-bottom: 5px;">Nouvelles approches d'analyse vocale pour la détection précoce</h3>
+            <p style="color: #666; font-size: 14px; margin-bottom: 15px;">
+              Par Dr. Sophie Martin, Université de Montréal
+            </p>
+            
+            <p style="font-size: 14px; margin-bottom: 15px;">
+              Découvrez les dernières avancées en matière d'analyse vocale pour la détection précoce des troubles cognitifs légers. 
+              Ce webinaire présentera les résultats d'une étude récente menée par l'équipe du Dr. Martin.
+            </p>
+            
+            <!-- Tags -->
+            <div style="display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 15px;">
+              <span style="background-color: #f0f0f0; padding: 5px 10px; border-radius: 15px; font-size: 12px;">Analyse vocale</span>
+              <span style="background-color: #f0f0f0; padding: 5px 10px; border-radius: 15px; font-size: 12px;">IA</span>
+              <span style="background-color: #f0f0f0; padding: 5px 10px; border-radius: 15px; font-size: 12px;">Troubles cognitifs</span>
+            </div>
+            
+            <!-- Pied de carte avec horaire et bouton -->
+            <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 10px; border-top: 1px solid #eee;">
+              <span style="font-size: 14px; color: #666;">14:00 - 15:30 (UTC+1)</span>
+              <a href="#" style="background-color: #4A90E2; color: white; padding: 8px 15px; border-radius: 5px; text-decoration: none; font-weight: bold;">S'inscrire</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Événement 2 - Atelier -->
+        <div class="s2h-card" style="border-radius: 16px; background-color: white; padding: 0; overflow: hidden;">
+          <!-- Entête avec badge et date -->
+          <div style="display: flex; align-items: start; background-color: #f0fff0; padding: 15px;">
+            <div style="background-color: #e6ffe6; color: #66BB6A; padding: 5px 10px; border-radius: 5px; font-size: 14px; font-weight: bold;">
+              Atelier
+            </div>
+            <div style="margin-left: auto; text-align: right;">
+              <div style="font-weight: bold; font-size: 24px;">2-3</div>
+              <div style="font-size: 14px;">Avril<br>2025</div>
+            </div>
+          </div>
+          
+          <!-- Contenu de la carte -->
+          <div style="padding: 20px;">
+            <h3 style="font-size: 18px; margin-bottom: 5px;">Créer des tests neurocognitifs efficaces</h3>
+            <p style="color: #666; font-size: 14px; margin-bottom: 15px;">
+              Par l'équipe Speech2Health
+            </p>
+            
+            <p style="font-size: 14px; margin-bottom: 15px;">
+              Atelier pratique en deux jours pour apprendre à concevoir, implémenter et valider des tests neurocognitifs 
+              sur la plateforme Speech2Health. Idéal pour les chercheurs et cliniciens.
+            </p>
+            
+            <!-- Tags -->
+            <div style="display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 15px;">
+              <span style="background-color: #f0f0f0; padding: 5px 10px; border-radius: 15px; font-size: 12px;">Méthodologie</span>
+              <span style="background-color: #f0f0f0; padding: 5px 10px; border-radius: 15px; font-size: 12px;">Tests cognitifs</span>
+              <span style="background-color: #f0f0f0; padding: 5px 10px; border-radius: 15px; font-size: 12px;">Validation</span>
+            </div>
+            
+            <!-- Pied de carte avec horaire et bouton -->
+            <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 10px; border-top: 1px solid #eee;">
+              <span style="font-size: 14px; color: #666;">9:00 - 17:00 (UTC+1)</span>
+              <a href="#" style="background-color: #4A90E2; color: white; padding: 8px 15px; border-radius: 5px; text-decoration: none; font-weight: bold;">S'inscrire</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Événement 3 - Conférence -->
+        <div class="s2h-card" style="border-radius: 16px; background-color: white; padding: 0; overflow: hidden;">
+          <!-- Entête avec badge et date -->
+          <div style="display: flex; align-items: start; background-color: #f0f0ff; padding: 15px;">
+            <div style="background-color: #e6e6ff; color: #5E60CE; padding: 5px 10px; border-radius: 5px; font-size: 14px; font-weight: bold;">
+              Conférence
+            </div>
+            <div style="margin-left: auto; text-align: right;">
+              <div style="font-weight: bold; font-size: 24px;">15</div>
+              <div style="font-size: 14px;">Avril<br>2025</div>
+            </div>
+          </div>
+          
+          <!-- Contenu de la carte -->
+          <div style="padding: 20px;">
+            <h3 style="font-size: 18px; margin-bottom: 5px;">Santé mentale et technologies ouvertes</h3>
+            <p style="color: #666; font-size: 14px; margin-bottom: 15px;">
+              Conférence internationale, Paris
+            </p>
+            
+            <p style="font-size: 14px; margin-bottom: 15px;">
+              Conférence internationale réunissant chercheurs, cliniciens et développeurs autour des 
+              technologies open-source appliquées à la santé mentale. Speech2Health présentera 
+              ses dernières innovations.
+            </p>
+            
+            <!-- Tags -->
+            <div style="display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 15px;">
+              <span style="background-color: #f0f0f0; padding: 5px 10px; border-radius: 15px; font-size: 12px;">Open Source</span>
+              <span style="background-color: #f0f0f0; padding: 5px 10px; border-radius: 15px; font-size: 12px;">Santé mentale</span>
+              <span style="background-color: #f0f0f0; padding: 5px 10px; border-radius: 15px; font-size: 12px;">Innovation</span>
+            </div>
+            
+            <!-- Pied de carte avec horaire et bouton -->
+            <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 10px; border-top: 1px solid #eee;">
+              <span style="font-size: 14px; color: #666;">Toute la journée</span>
+              <a href="#" style="background-color: #4A90E2; color: white; padding: 8px 15px; border-radius: 5px; text-decoration: none; font-weight: bold;">En savoir plus</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hackathon - Carte individuelle comme dans l'image 2 -->
+      <div class="s2h-card" style="border-radius: 16px; background-color: white; padding: 0; overflow: hidden; margin-bottom: 40px; max-width: 400px;">
+        <!-- Entête avec badge et date -->
+        <div style="display: flex; align-items: start; background-color: #fff7e6; padding: 15px;">
+          <div style="background-color: #ffefd6; color: #FF9800; padding: 5px 10px; border-radius: 5px; font-size: 14px; font-weight: bold;">
+            Hackathon
+          </div>
+          <div style="margin-left: auto; text-align: right;">
+            <div style="font-weight: bold; font-size: 24px;">5-7</div>
+            <div style="font-size: 14px;">Mai<br>2025</div>
+          </div>
+        </div>
+        
+        <!-- Contenu de la carte -->
+        <div style="padding: 20px;">
+          <h3 style="font-size: 18px; margin-bottom: 5px;">Hackathon Speech2Health 2025</h3>
+          <p style="color: #666; font-size: 14px; margin-bottom: 15px;">
+            Événement virtuel mondial
+          </p>
+          
+          <p style="font-size: 14px; margin-bottom: 15px;">
+            Rejoignez notre hackathon annuel pour développer des solutions innovantes 
+            en santé mentale. Prix pour les meilleures implémentations et possibilité 
+            d'intégration dans la plateforme Speech2Health.
+          </p>
+          
+          <!-- Tags -->
+          <div style="display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 15px;">
+            <span style="background-color: #f0f0f0; padding: 5px 10px; border-radius: 15px; font-size: 12px;">Développement</span>
+            <span style="background-color: #f0f0f0; padding: 5px 10px; border-radius: 15px; font-size: 12px;">Collaboration</span>
+            <span style="background-color: #f0f0f0; padding: 5px 10px; border-radius: 15px; font-size: 12px;">Innovation</span>
+          </div>
+          
+          <!-- Pied de carte avec horaire et bouton -->
+          <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 10px; border-top: 1px solid #eee;">
+            <span style="font-size: 14px; color: #666;">72 heures non-stop</span>
+            <a href="#" style="background-color: #4A90E2; color: white; padding: 8px 15px; border-radius: 5px; text-decoration: none; font-weight: bold;">S'inscrire</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Calendrier des événements - comme dans l'image 2 -->
+      <div class="s2h-card" style="border-radius: 16px; background-color: white; padding: 20px; margin-bottom: 40px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+          <h2 style="margin: 0; font-size: 20px;">Calendrier des événements</h2>
+          <p style="margin: 0; color: #666; font-size: 14px;">Planifiez votre participation aux événements à venir</p>
+        </div>
+        
+        <div id="events-calendar" style="height: 100px; background-color: #f8f9fa; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+          <!-- Placeholder pour le calendrier -->
+          <span style="color: #888;">Calendrier des événements (sera affiché ici)</span>
+        </div>
+        
+        <div style="display: flex; justify-content: flex-end;">
+          <a href="#" style="color: #4A90E2; border: 1px solid #4A90E2; background-color: white; padding: 8px 15px; border-radius: 5px; text-decoration: none; font-size: 14px;">Exporter vers mon agenda (.ics)</a>
+        </div>
+      </div>
+
+      <!-- Événements passés - comme dans l'image 2 -->
+      <h2 style="margin: 30px 0 20px;">Événements passés</h2>
+      
+      <!-- Liste des événements passés dans un format différent -->
+      <div class="s2h-card" style="border-radius: 16px; background-color: white; padding: 20px; margin-bottom: 40px;">
+        <!-- Disposition en colonnes comme sur l'image 2 -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
+          <div style="position: relative; padding-left: 25px;">
+            <div style="position: absolute; left: 0; top: 5px; width: 12px; height: 12px; background-color: #4A90E2; border-radius: 50%;"></div>
+            <div style="font-size: 14px; color: #666; margin-bottom: 5px;">25 Janvier 2025</div>
+            <h3 style="margin-top: 0; margin-bottom: 10px; font-size: 18px;">Atelier: Intégration des échelles psychométriques</h3>
+            <p style="font-size: 14px; margin-bottom: 15px;">
+              Atelier pratique sur l'intégration et la validation des échelles psychométriques dans vos tests Speech2Health.
+            </p>
+            <a href="#" style="color: #4A90E2; border: 1px solid #4A90E2; background-color: white; padding: 8px 15px; border-radius: 5px; text-decoration: none; font-size: 14px;">Voir les supports</a>
+          </div>
+
+          <div style="position: relative; padding-left: 25px;">
+            <div style="position: absolute; left: 0; top: 5px; width: 12px; height: 12px; background-color: #4A90E2; border-radius: 50%;"></div>
+            <div style="font-size: 14px; color: #666; margin-bottom: 5px;">10 Février 2025</div>
+            <h3 style="margin-top: 0; margin-bottom: 10px; font-size: 18px;">Webinaire: Biomarqueurs vocaux et analyses longitudinales</h3>
+            <p style="font-size: 14px; margin-bottom: 15px;">
+              Présentation des méthodes d'analyse longitudinale des biomarqueurs vocaux pour le suivi des patients.
+            </p>
+            <a href="#" style="color: #4A90E2; border: 1px solid #4A90E2; background-color: white; padding: 8px 15px; border-radius: 5px; text-decoration: none; font-size: 14px;">Voir l'enregistrement</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA pour proposer un événement - comme dans l'image 3 -->
+      <div class="s2h-card" style="border-radius: 16px; background-color: white; padding: 30px; margin-bottom: 40px;">
+        <h2 style="margin-top: 0; margin-bottom: 15px; font-size: 22px;">Vous souhaitez organiser un événement?</h2>
+        <p style="margin-bottom: 20px; font-size: 15px; max-width: 800px;">
+          Partagez votre expertise avec la communauté en organisant un webinaire, un atelier ou une table ronde. 
+          Notre équipe vous accompagnera dans la mise en place technique et la promotion de votre événement.
+        </p>
+        <a href="#" style="display: inline-block; background-color: #5E9CA0; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-weight: bold;">Proposer un événement</a>
+      </div>
+    </div>
+  </main>
+  <!-- Inclusion du footer -->
+  <include src="/templates/footer.html"></include>
+</body>
+</html>

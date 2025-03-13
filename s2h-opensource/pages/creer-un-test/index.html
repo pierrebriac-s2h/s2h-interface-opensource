@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Speech2Health - Créer un test</title>
+  <link rel="stylesheet" href="../../css/s2h-styles.css">
+  <script>
+    // Fonction pour charger les templates HTML
+    function loadTemplate(elementId, templatePath) {
+      fetch(templatePath)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`Erreur HTTP: ${response.status}`);
+          }
+          return response.text();
+        })
+        .then(html => {
+          document.getElementById(elementId).innerHTML = html;
+          
+          // Déclencher les scripts dans le template chargé
+          const scripts = document.getElementById(elementId).getElementsByTagName('script');
+          for (let script of scripts) {
+            eval(script.innerHTML);
+          }
+
+          // Marquer le lien "Créer un test" comme actif dans la navigation
+          if (elementId === 'header-container') {
+            const navLinks = document.querySelectorAll('.s2h-nav__link');
+            navLinks.forEach(link => {
+              link.classList.remove('s2h-nav__link--active');
+              if (link.textContent.trim() === 'Créer un test') {
+                link.classList.add('s2h-nav__link--active');
+              }
+            });
+          }
+        })
+        .catch(error => {
+          console.error(`Impossible de charger le template ${templatePath}:`, error);
+        });
+    }
+
+    // Charger les templates lorsque le DOM est prêt
+    document.addEventListener('DOMContentLoaded', function() {
+      loadTemplate('header-container', '../../templates/header.html');
+      loadTemplate('footer-container', '../../templates/footer.html');
+    });
+  </script>
+</head>
+<body>
+  <!-- Container pour le header -->
+  <div id="header-container"></div>
+  
+  <main class="s2h-container">
+    <!-- Section d'introduction -->
+    <div class="s2h-card s2h-mb-lg">
+      <div class="s2h-card__header">
+        <h2 class="s2h-card__title">Créez vos outils de recherche</h2>
+      </div>
+      <div class="s2h-card__body">
+        <p class="s2h-mb">Bienvenue dans l'espace de création Speech2Health. Vous pouvez créer un nouveau protocole de recherche complet ou un test individuel selon vos besoins.</p>
+        
+        <div class="s2h-flex s2h-flex-gap-md s2h-mb-lg">
+          <div class="s2h-card s2h-card--primary" style="flex: 1;">
+            <div class="s2h-card__header">
+              <h3 class="s2h-card__title">Qu'est-ce qu'un protocole?</h3>
+            </div>
+            <div class="s2h-card__body">
+              <p>Un protocole est un ensemble de tests organisés pour répondre à une question de recherche spécifique. Il permet de collecter des données cohérentes et de suivre un processus scientifique rigoureux.</p>
+            </div>
+          </div>
+          
+          <div class="s2h-card s2h-card--primary" style="flex: 1;">
+            <div class="s2h-card__header">
+              <h3 class="s2h-card__title">Qu'est-ce qu'un test?</h3>
+            </div>
+            <div class="s2h-card__body">
+              <p>Un test est un outil d'évaluation individuel ciblant une fonction cognitive ou un aspect spécifique. Les tests peuvent être réutilisés dans différents protocoles de recherche.</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Boutons de création -->
+        <div class="s2h-flex s2h-justify-center s2h-flex-gap-lg s2h-mb-lg">
+          <a href="creer-protocole.html" class="s2h-btn s2h-btn--accent s2h-btn--lg s2h-btn--icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+              <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+            </svg>
+            Créer un protocole
+          </a>
+          
+          <a href="creer-test.html" class="s2h-btn s2h-btn--primary s2h-btn--lg s2h-btn--icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+              <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+            </svg>
+            Créer un test
+          </a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Section Mes créations -->
+    <div class="s2h-card">
+      <div class="s2h-card__header">
+        <h2 class="s2h-card__title">Mes créations</h2>
+        <div class="s2h-tabs s2h-tabs--small">
+          <div class="s2h-tabs__item s2h-tabs__item--active">Tous</div>
+          <div class="s2h-tabs__item">Tests</div>
+          <div class="s2h-tabs__item">Protocoles</div>
+          <div class="s2h-tabs__item">Brouillons</div>
+        </div>
+      </div>
+      
+      <div class="s2h-card__body">
+        <!-- Filtres et tri -->
+        <div class="s2h-flex s2h-justify-between s2h-items-center s2h-mb-md">
+          <div class="s2h-form__search">
+            <input type="text" class="s2h-form__input" placeholder="Rechercher dans mes créations...">
+          </div>
+          
+          <div class="s2h-flex s2h-flex-gap-sm">
+            <select class="s2h-form__select">
+              <option value="recent">Les plus récents</option>
+              <option value="oldest">Les plus anciens</option>
+              <option value="popular">Les plus utilisés</option>
+              <option value="name">Par nom</option>
+            </select>
+          </div>
+        </div>
+        
+        <!-- Liste des tests/protocoles -->
+        <div class="s2h-card-grid">
+          <!-- Création 1 -->
+          <div class="s2h-card s2h-card--secondary">
+            <div class="s2h-card__header">
+              <div class="s2h-flex s2h-justify-between s2h-items-center">
+                <h3 class="s2h-card__title">MemTest-Alpha</h3>
+                <span class="s2h-badge s2h-badge--validated">Publié</span>
+              </div>
+              <div class="s2h-flex s2h-flex-wrap s2h-flex-gap-xs s2h-mb-sm">
+                <span class="s2h-badge s2h-badge--memory">Mémoire</span>
+                <span class="s2h-badge s2h-badge--web">Web</span>
+                <span class="s2h-badge">Test</span>
+              </div>
+            </div>
+            <div class="s2h-card__body">
+              <p class="s2h-font-sm s2h-text-medium s2h-mb">Test d'évaluation de la mémoire à court terme avec reconnaissance visuelle.</p>
+              
+              <div class="s2h-flex s2h-justify-between s2h-text-medium s2h-font-sm s2h-mt">
+                <span>Créé le 15/02/2025</span>
+                <span class="s2h-flex s2h-items-center s2h-flex-gap-xs">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+                  </svg>
+                  247 utilisateurs
+                </span>
+              </div>
+            </div>
+            <div class="s2h-card__footer">
+              <div class="s2h-flex s2h-justify-end s2h-flex-gap-sm">
+                <a href="modifier-test.html?id=memtest-alpha" class="s2h-btn s2h-btn--sm">Modifier</a>
+                <a href="resultats-test.html?id=memtest-alpha" class="s2h-btn s2h-btn--accent s2h-btn--sm">Voir les résultats</a>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Création 2 -->
+          <div class="s2h-card s2h-card--secondary">
+            <div class="s2h-card__header">
+              <div class="s2h-flex s2h-justify-between s2h-items-center">
+                <h3 class="s2h-card__title">Protocole Attention-B2</h3>
+                <span class="s2h-badge s2h-badge--testing">En validation</span>
+              </div>
+              <div class="s2h-flex s2h-flex-wrap s2h-flex-gap-xs s2h-mb-sm">
+                <span class="s2h-badge s2h-badge--attention">Attention</span>
+                <span class="s2h-badge s2h-badge--vr">VR</span>
+                <span class="s2h-badge">Protocole</span>
+              </div>
+            </div>
+            <div class="s2h-card__body">
+              <p class="s2h-font-sm s2h-text-medium s2h-mb">Protocole complet d'évaluation de l'attention soutenue et divisée.</p>
+              
+              <div class="s2h-flex s2h-justify-between s2h-text-medium s2h-font-sm s2h-mt">
+                <span>Créé le 03/03/2025</span>
+                <span class="s2h-flex s2h-items-center s2h-flex-gap-xs">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+                  </svg>
+                  82 utilisateurs
+                </span>
+              </div>
+            </div>
+            <div class="s2h-card__footer">
+              <div class="s2h-flex s2h-justify-end s2h-flex-gap-sm">
+                <a href="modifier-protocole.html?id=attention-b2" class="s2h-btn s2h-btn--sm">Modifier</a>
+                <a href="resultats-protocole.html?id=attention-b2" class="s2h-btn s2h-btn--accent s2h-btn--sm">Voir les résultats</a>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Création 3 -->
+          <div class="s2h-card s2h-card--secondary">
+            <div class="s2h-card__header">
+              <div class="s2h-flex s2h-justify-between s2h-items-center">
+                <h3 class="s2h-card__title">LangEval</h3>
+                <span class="s2h-badge s2h-badge--beta">Brouillon</span>
+              </div>
+              <div class="s2h-flex s2h-flex-wrap s2h-flex-gap-xs s2h-mb-sm">
+                <span class="s2h-badge s2h-badge--language">Langage</span>
+                <span class="s2h-badge s2h-badge--mobile">Mobile</span>
+                <span class="s2h-badge">Test</span>
+              </div>
+            </div>
+            <div class="s2h-card__body">
+              <p class="s2h-font-sm s2h-text-medium s2h-mb">Test d'évaluation des compétences linguistiques et de la fluence verbale.</p>
+              
+              <div class="s2h-flex s2h-justify-between s2h-text-medium s2h-font-sm s2h-mt">
+                <span>Créé le 08/03/2025</span>
+                <span class="s2h-flex s2h-items-center s2h-flex-gap-xs">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+                  </svg>
+                  0 utilisateurs
+                </span>
+              </div>
+            </div>
+            <div class="s2h-card__footer">
+              <div class="s2h-flex s2h-justify-end s2h-flex-gap-sm">
+                <a href="modifier-test.html?id=langeval" class="s2h-btn s2h-btn--sm">Continuer l'édition</a>
+                <a href="publier-test.html?id=langeval" class="s2h-btn s2h-btn--primary s2h-btn--sm">Publier</a>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Création 4 - Modèle pour nouveau test -->
+          <div class="s2h-card s2h-card--dashed" style="display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 240px; cursor: pointer;" onclick="window.location.href='creer-test.html';">
+            <div style="text-align: center; padding: 20px;">
+              <div class="s2h-mb-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="s2h-text-primary" viewBox="0 0 16 16">
+                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                </svg>
+              </div>
+              <h3 class="s2h-font-lg s2h-mb-sm">Créer un nouveau test</h3>
+              <p class="s2h-text-medium s2h-font-sm">Commencez à créer un nouveau test ou protocole</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Pagination -->
+        <div class="s2h-pagination s2h-mt-lg">
+          <div class="s2h-pagination__item s2h-pagination__item--active">1</div>
+          <div class="s2h-pagination__item">2</div>
+          <div class="s2h-pagination__item">3</div>
+          <div class="s2h-pagination__item">...</div>
+          <div class="s2h-pagination__item">8</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Section Statistiques -->
+    <div class="s2h-card s2h-mt-lg">
+      <div class="s2h-card__header">
+        <h2 class="s2h-card__title">Statistiques d'utilisation</h2>
+      </div>
+      <div class="s2h-card__body">
+        <div class="s2h-grid">
+          <div class="s2h-grid__col--4 s2h-grid__col--md-6 s2h-grid__col--sm-12">
+            <div class="s2h-card s2h-text-center s2h-p">
+              <h3 class="s2h-font-xxl s2h-text-primary s2h-mb-xs">12</h3>
+              <p class="s2h-font-sm s2h-text-medium">Tests créés</p>
+            </div>
+          </div>
+          <div class="s2h-grid__col--4 s2h-grid__col--md-6 s2h-grid__col--sm-12">
+            <div class="s2h-card s2h-text-center s2h-p">
+              <h3 class="s2h-font-xxl s2h-text-accent s2h-mb-xs">3</h3>
+              <p class="s2h-font-sm s2h-text-medium">Protocoles créés</p>
+            </div>
+          </div>
+          <div class="s2h-grid__col--4 s2h-grid__col--md-6 s2h-grid__col--sm-12">
+            <div class="s2h-card s2h-text-center s2h-p">
+              <h3 class="s2h-font-xxl s2h-text-success s2h-mb-xs">1,453</h3>
+              <p class="s2h-font-sm s2h-text-medium">Utilisations totales</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <!-- Container pour le footer -->
+  <div id="footer-container"></div>
+
+  <!-- Script spécifique à la page -->
+  <script src="../../assets/js/pages/creer-un-test.js"></script>
+</body>
+</html>
