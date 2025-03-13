@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forum - Speech2Health</title>
+  <link rel="stylesheet" href="/css/s2h-styles.css">
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const includes = document.querySelectorAll('include');
+      
+      includes.forEach(function(include) {
+        const src = include.getAttribute('src');
+        
+        fetch(src)
+          .then(response => response.text())
+          .then(data => {
+            const div = document.createElement('div');
+            div.innerHTML = data;
+            include.parentNode.replaceChild(div, include);
+          })
+          .catch(error => {
+            console.error('Erreur lors du chargement du fichier ' + src, error);
+          });
+      });
+    });
+  </script>
+</head>
+<body class="s2h-bg-light">
+  <!-- Inclusion du header -->
+  <include src="/templates/header.html"></include>
+  
+  <!-- Onglets de navigation pour la section Communauté -->
+  <div class="s2h-container">
+    <div class="s2h-tabs s2h-mb-lg">
+      <a href="/pages/communaute/index.html" class="s2h-tabs__item">Événements</a>
+      <a href="/pages/communaute/forum.html" class="s2h-tabs__item s2h-tabs__item--active">Forum</a>
+    </div>
+  </div>
+  
+  <main>
+    <div class="s2h-container">
+      <!-- En-tête de la page -->
+      <div class="s2h-text-center s2h-mb-lg">
+        <h1 class="s2h-font-xxl s2h-mb-sm">Forum de la communauté</h1>
+        <p class="s2h-text-medium" style="max-width: 800px; margin: 0 auto;">
+          Échangez avec d'autres chercheurs, développeurs et professionnels de santé. 
+          Partagez vos connaissances, posez vos questions et collaborez sur des projets innovants.
+        </p>
+      </div>
+
+      <!-- Barre de recherche et actions -->
+      <div class="s2h-card s2h-mb-lg">
+        <div class="s2h-flex s2h-justify-between s2h-items-center">
+          <div class="s2h-form__search" style="width: 400px;">
+            <input type="text" class="s2h-form__input s2h-form__search-input" placeholder="Rechercher dans le forum...">
+            <span class="s2h-form__search-icon">🔍</span>
+          </div>
+          <a href="#" class="s2h-btn s2h-btn--primary">Créer une discussion</a>
+        </div>
+      </div>
+
+      <!-- Layout principal avec sidebar -->
+      <div class="s2h-grid">
+        <!-- Contenu principal -->
+        <div class="s2h-grid__col--8 s2h-grid__col--md-12">
+          
+          <!-- Catégories populaires -->
+          <h2 class="s2h-mb">Catégories de discussions</h2>
+          
+          <!-- Liste des catégories -->
+          <div class="s2h-card s2h-mb-md">
+            <a href="#" class="s2h-flex s2h-justify-between s2h-items-center s2h-p-md s2h-border-bottom">
+              <div>
+                <h3 class="s2h-font-lg s2h-mb-xs">Recherche et Méthodologie</h3>
+                <p class="s2h-text-medium s2h-font-sm">Discussions sur les protocoles de recherche, méthodes statistiques et validations scientifiques.</p>
+              </div>
+              <div class="s2h-text-medium s2h-text-right">
+                <div class="s2h-font-bold">324</div>
+                <div class="s2h-font-sm">sujets</div>
+              </div>
+            </a>
+            
+            <a href="#" class="s2h-flex s2h-justify-between s2h-items-center s2h-p-md s2h-border-bottom">
+              <div>
+                <h3 class="s2h-font-lg s2h-mb-xs">Développement et Intégration</h3>
+                <p class="s2h-text-medium s2h-font-sm">Questions techniques liées au développement et à l'intégration des tests et des API.</p>
+              </div>
+              <div class="s2h-text-medium s2h-text-right">
+                <div class="s2h-font-bold">216</div>
+                <div class="s2h-font-sm">sujets</div>
+              </div>
+            </a>
+            
+            <a href="#" class="s2h-flex s2h-justify-between s2h-items-center s2h-p-md s2h-border-bottom">
+              <div>
+                <h3 class="s2h-font-lg s2h-mb-xs">Analyse Vocale et Biomarqueurs</h3>
+                <p class="s2h-text-medium s2h-font-sm">Tout sur l'analyse vocale, les biomarqueurs et les indicateurs neurocognitifs.</p>
+              </div>
+              <div class="s2h-text-medium s2h-text-right">
+                <div class="s2h-font-bold">189</div>
+                <div class="s2h-font-sm">sujets</div>
+              </div>
+            </a>
+            
+            <a href="#" class="s2h-flex s2h-justify-between s2h-items-center s2h-p-md s2h-border-bottom">
+              <div>
+                <h3 class="s2h-font-lg s2h-mb-xs">Échelles Psychométriques</h3>
+                <p class="s2h-text-medium s2h-font-sm">Discussions sur l'utilisation des échelles psychométriques et questionnaires validés.</p>
+              </div>
+              <div class="s2h-text-medium s2h-text-right">
+                <div class="s2h-font-bold">145</div>
+                <div class="s2h-font-sm">sujets</div>
+              </div>
+            </a>
+            
+            <a href="#" class="s2h-flex s2h-justify-between s2h-items-center s2h-p-md">
+              <div>
+                <h3 class="s2h-font-lg s2h-mb-xs">Questions Éthiques et Réglementaires</h3>
+                <p class="s2h-text-medium s2h-font-sm">Échanges sur les aspects éthiques, réglementaires et la protection des données.</p>
+              </div>
+              <div class="s2h-text-medium s2h-text-right">
+                <div class="s2h-font-bold">98</div>
+                <div class="s2h-font-sm">sujets</div>
+              </div>
+            </a>
+          </div>
+          
+          <!-- Discussions récentes -->
+          <h2 class="s2h-mb">Discussions récentes</h2>
+          <div class="s2h-card s2h-mb-lg">
+            <!-- Discussion 1 -->
+            <div class="s2h-p-md s2h-border-bottom">
+              <div class="s2h-flex s2h-justify-between s2h-items-start">
+                <div class="s2h-flex s2h-items-start s2h-flex-gap-sm">
+                  <div class="s2h-user__avatar">JL</div>
+                  <div>
+                    <a href="#" class="s2h-font-lg s2h-font-medium s2h-mb-xs s2h-text-primary">Validation française de l'échelle d'évaluation cognitive rapide</a>
+                    <p class="s2h-font-sm s2h-text-medium s2h-mb-xs">Commencé par <span class="s2h-font-semibold">Jean Legrand</span> dans <a href="#" class="s2h-text-primary">Échelles Psychométriques</a></p>
+                    <p class="s2h-font-sm s2h-mb">
+                      Je travaille actuellement sur la validation française d'une échelle d'évaluation cognitive rapide, et j'aimerais savoir si certains d'entre vous ont déjà...
+                    </p>
+                    <div class="s2h-flex s2h-flex-gap-sm">
+                      <span class="s2h-badge s2h-badge--language">Échelles</span>
+                      <span class="s2h-badge s2h-badge--cognitive">Validation</span>
+                      <span class="s2h-badge s2h-badge--primary">Cognitif</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="s2h-text-right s2h-text-medium">
+                  <div class="s2h-font-sm">Il y a 2 heures</div>
+                  <div class="s2h-font-bold s2h-mt-xs">12 réponses</div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Discussion 2 -->
+            <div class="s2h-p-md s2h-border-bottom">
+              <div class="s2h-flex s2h-justify-between s2h-items-start">
+                <div class="s2h-flex s2h-items-start s2h-flex-gap-sm">
+                  <div class="s2h-user__avatar s2h-bg-purple">SM</div>
+                  <div>
+                    <a href="#" class="s2h-font-lg s2h-font-medium s2h-mb-xs s2h-text-primary">Intégration des analyses en temps réel dans les tests de mémoire</a>
+                    <p class="s2h-font-sm s2h-text-medium s2h-mb-xs">Commencé par <span class="s2h-font-semibold">Sophie Martin</span> dans <a href="#" class="s2h-text-primary">Développement et Intégration</a></p>
+                    <p class="s2h-font-sm s2h-mb">
+                      Bonjour à tous, je cherche à implémenter une analyse en temps réel des réponses vocales dans un test de mémoire. J'ai commencé à utiliser l'API...
+                    </p>
+                    <div class="s2h-flex s2h-flex-gap-sm">
+                      <span class="s2h-badge s2h-badge--memory">Mémoire</span>
+                      <span class="s2h-badge s2h-badge--web">API</span>
+                      <span class="s2h-badge s2h-badge--mobile">Temps réel</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="s2h-text-right s2h-text-medium">
+                  <div class="s2h-font-sm">Il y a 5 heures</div>
+                  <div class="s2h-font-bold s2h-mt-xs">8 réponses</div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Discussion 3 -->
+            <div class="s2h-p-md">
+              <div class="s2h-flex s2h-justify-between s2h-items-start">
+                <div class="s2h-flex s2h-items-start s2h-flex-gap-sm">
+                  <div class="s2h-user__avatar" style="background-color: #66BB6A;">TD</div>
+                  <div>
+                    <a href="#" class="s2h-font-lg s2h-font-medium s2h-mb-xs s2h-text-primary">Partage de données anonymisées pour recherche collaborative</a>
+                    <p class="s2h-font-sm s2h-text-medium s2h-mb-xs">Commencé par <span class="s2h-font-semibold">Thomas Dupont</span> dans <a href="#" class="s2h-text-primary">Questions Éthiques et Réglementaires</a></p>
+                    <p class="s2h-font-sm s2h-mb">
+                      Notre équipe souhaite mettre en place un système de partage de données anonymisées pour faciliter la recherche collaborative. Quelles sont...
+                    </p>
+                    <div class="s2h-flex s2h-flex-gap-sm">
+                      <span class="s2h-badge s2h-badge--testing">RGPD</span>
+                      <span class="s2h-badge s2h-badge--primary">Données</span>
+                      <span class="s2h-badge s2h-badge--attention">Collaboration</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="s2h-text-right s2h-text-medium">
+                  <div class="s2h-font-sm">Hier</div>
+                  <div class="s2h-font-bold s2h-mt-xs">23 réponses</div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Voir plus de discussions -->
+            <div class="s2h-text-center s2h-p-md s2h-border-top">
+              <a href="#" class="s2h-btn s2h-btn--outline">Voir plus de discussions</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Sidebar -->
+        <div class="s2h-grid__col--4 s2h-grid__col--md-12">
+          <!-- Statistiques du forum -->
+          <div class="s2h-card s2h-mb-md">
+            <h3 class="s2h-card__title s2h-mb">Statistiques du forum</h3>
+            <div class="s2h-flex s2h-flex-col s2h-flex-gap">
+              <div class="s2h-flex s2h-justify-between">
+                <span class="s2h-text-medium">Membres</span>
+                <span class="s2h-font-semibold">1,245</span>
+              </div>
+              <div class="s2h-flex s2h-justify-between">
+                <span class="s2h-text-medium">Discussions</span>
+                <span class="s2h-font-semibold">972</span>
+              </div>
+              <div class="s2h-flex s2h-justify-between">
+                <span class="s2h-text-medium">Messages</span>
+                <span class="s2h-font-semibold">4,328</span>
+              </div>
+              <div class="s2h-flex s2h-justify-between">
+                <span class="s2h-text-medium">Dernier membre</span>
+                <span class="s2h-font-semibold s2h-text-primary">Marie Lambert</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Membres actifs -->
+          <div class="s2h-card s2h-mb-md">
+            <h3 class="s2h-card__title s2h-mb">Membres les plus actifs</h3>
+            <div class="s2h-flex s2h-flex-col s2h-flex-gap">
+              <div class="s2h-flex s2h-items-center s2h-flex-gap-sm">
+                <div class="s2h-user__avatar s2h-bg-purple">SM</div>
+                <div>
+                  <div class="s2h-font-semibold">Sophie Martin</div>
+                  <div class="s2h-font-sm s2h-text-medium">152 contributions</div>
+                </div>
+              </div>
+              <div class="s2h-flex s2h-items-center s2h-flex-gap-sm">
+                <div class="s2h-user__avatar" style="background-color: #66BB6A;">TD</div>
+                <div>
+                  <div class="s2h-font-semibold">Thomas Dupont</div>
+                  <div class="s2h-font-sm s2h-text-medium">123 contributions</div>
+                </div>
+              </div>
+              <div class="s2h-flex s2h-items-center s2h-flex-gap-sm">
+                <div class="s2h-user__avatar" style="background-color: #FF9800;">AP</div>
+                <div>
+                  <div class="s2h-font-semibold">Alexandre Petit</div>
+                  <div class="s2h-font-sm s2h-text-medium">98 contributions</div>
+                </div>
+              </div>
+              <div class="s2h-flex s2h-items-center s2h-flex-gap-sm">
+                <div class="s2h-user__avatar" style="background-color: #5E60CE;">CL</div>
+                <div>
+                  <div class="s2h-font-semibold">Claire Lambert</div>
+                  <div class="s2h-font-sm s2h-text-medium">87 contributions</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Ressources -->
+          <div class="s2h-card s2h-mb-md">
+            <h3 class="s2h-card__title s2h-mb">Ressources utiles</h3>
+            <ul style="list-style: none; padding: 0;">
+              <li class="s2h-mb-xs">
+                <a href="#" class="s2h-flex s2h-items-center s2h-flex-gap-xs s2h-text-primary">
+                  <span>📄</span>
+                  <span>Guide du forum</span>
+                </a>
+              </li>
+              <li class="s2h-mb-xs">
+                <a href="#" class="s2h-flex s2h-items-center s2h-flex-gap-xs s2h-text-primary">
+                  <span>🔄</span>
+                  <span>Comment créer un test</span>
+                </a>
+              </li>
+              <li class="s2h-mb-xs">
+                <a href="#" class="s2h-flex s2h-items-center s2h-flex-gap-xs s2h-text-primary">
+                  <span>📊</span>
+                  <span>Documentation API</span>
+                </a>
+              </li>
+              <li class="s2h-mb-xs">
+                <a href="#" class="s2h-flex s2h-items-center s2h-flex-gap-xs s2h-text-primary">
+                  <span>📝</span>
+                  <span>Charte de la communauté</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+          
+          <!-- Tags populaires -->
+          <div class="s2h-card">
+            <h3 class="s2h-card__title s2h-mb">Tags populaires</h3>
+            <div class="s2h-flex s2h-flex-wrap s2h-flex-gap-xs">
+              <a href="#" class="s2h-tag">API</a>
+              <a href="#" class="s2h-tag">Cognition</a>
+              <a href="#" class="s2h-tag">Voix</a>
+              <a href="#" class="s2h-tag">Neuropsychologie</a>
+              <a href="#" class="s2h-tag">Open Source</a>
+              <a href="#" class="s2h-tag">Biomarqueurs</a>
+              <a href="#" class="s2h-tag">Validation</a>
+              <a href="#" class="s2h-tag">Mémoire</a>
+              <a href="#" class="s2h-tag">Analyse</a>
+              <a href="#" class="s2h-tag">RGPD</a>
+              <a href="#" class="s2h-tag">Recherche</a>
+              <a href="#" class="s2h-tag">Mobile</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Bandeau d'appel à action -->
+      <div class="s2h-card s2h-mt-xl" style="background-color: #f0f7ff; border-left: 4px solid var(--s2h-primary);">
+        <div class="s2h-flex s2h-justify-between s2h-items-center">
+          <div>
+            <h3 class="s2h-font-lg s2h-mb-xs">Rejoignez notre atelier virtuel</h3>
+            <p class="s2h-font-sm">Apprenez à utiliser efficacement le forum et à collaborer avec d'autres membres.</p>
+          </div>
+          <a href="#" class="s2h-btn s2h-btn--primary s2h-btn--sm">M'inscrire à l'atelier</a>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <!-- Inclusion du footer -->
+  <include src="/templates/footer.html"></include>
+</body>
+</html>
