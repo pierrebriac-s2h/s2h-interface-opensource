@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Speech2Health - Explorer les tests</title>
+  <link rel="stylesheet" href="../../css/s2h-styles.css">
+  <script>
+    // Fonction pour charger les templates HTML
+    function loadTemplate(elementId, templatePath) {
+      fetch(templatePath)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`Erreur HTTP: ${response.status}`);
+          }
+          return response.text();
+        })
+        .then(html => {
+          document.getElementById(elementId).innerHTML = html;
+          
+          // Déclencher les scripts dans le template chargé
+          const scripts = document.getElementById(elementId).getElementsByTagName('script');
+          for (let script of scripts) {
+            eval(script.innerHTML);
+          }
+
+          // Si c'est le header, marquer le lien Explorer comme actif
+          if (elementId === 'header-container') {
+            const navLinks = document.querySelectorAll('.s2h-nav__link');
+            navLinks.forEach(link => {
+              link.classList.remove('s2h-nav__link--active');
+              if (link.textContent.trim() === 'Explorer') {
+                link.classList.add('s2h-nav__link--active');
+              }
+            });
+          }
+        })
+        .catch(error => {
+          console.error(`Impossible de charger le template ${templatePath}:`, error);
+        });
+    }
+
+    // Charger les templates lorsque le DOM est prêt
+    document.addEventListener('DOMContentLoaded', function() {
+      loadTemplate('header-container', '../../templates/header.html');
+      loadTemplate('footer-container', '../../templates/footer.html');
+      loadTemplate('sidebar-container', '../../templates/sidebar.html');
+      
+      // Ajouter des écouteurs d'événements pour les onglets
+      document.querySelectorAll('.s2h-tabs__item').forEach(tab => {
+        tab.addEventListener('click', function() {
+          // Retirer la classe active de tous les onglets
+          document.querySelectorAll('.s2h-tabs__item').forEach(t => {
+            t.classList.remove('s2h-tabs__item--active');
+          });
+          // Ajouter la classe active à l'onglet cliqué
+          this.classList.add('s2h-tabs__item--active');
+        });
+      });
+    });
+  </script>
+</head>
+<body>
+  <!-- Container pour le header -->
+  <div id="header-container"></div>
+  
+  <main class="s2h-container">
+    <div class="s2h-card s2h-mb-lg">
+      <div class="s2h-card__header">
+        <h2 class="s2h-card__title">Trouvez le test idéal pour votre recherche</h2>
+        <a href="../creer-un-test/index.html" class="s2h-btn s2h-btn--success s2h-btn--icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z"/>
+          </svg>
+          Créer un test
+        </a>
+      </div>
+      <div class="s2h-form__group">
+        <div class="s2h-form__row s2h-mb">
+          <input type="text" class="s2h-form__input" placeholder="Rechercher un test par nom, symptôme ou auteur...">
+          <button class="s2h-btn s2h-btn--primary">Rechercher</button>
+        </div>
+        
+        <!-- Filtres principaux -->
+        <div class="s2h-grid">
+          <div class="s2h-grid__col--3 s2h-grid__col--md-6 s2h-grid__col--sm-12">
+            <label class="s2h-form__label">Type de trouble</label>
+            <select class="s2h-form__select">
+              <option value="">Tous les types</option>
+              <option value="anxiety">Anxiété</option>
+              <option value="depression">Dépression</option>
+              <option value="adhd">TDAH</option>
+              <option value="dementia">Démence</option>
+              <option value="schizophrenia">Schizophrénie</option>
+            </select>
+          </div>
+          <div class="s2h-grid__col--3 s2h-grid__col--md-6 s2h-grid__col--sm-12">
+            <label class="s2h-form__label">Fonction cognitive</label>
+            <select class="s2h-form__select">
+              <option value="">Toutes les fonctions</option>
+              <option value="memory">Mémoire</option>
+              <option value="attention">Attention</option>
+              <option value="language">Langage</option>
+              <option value="executive">Fonctions exécutives</option>
+            </select>
+          </div>
+          <div class="s2h-grid__col--3 s2h-grid__col--md-6 s2h-grid__col--sm-12">
+            <label class="s2h-form__label">Technologie</label>
+            <select class="s2h-form__select">
+              <option value="">Toutes les technologies</option>
+              <option value="vr">Réalité virtuelle</option>
+              <option value="mobile">Application mobile</option>
+              <option value="web">Plateforme web</option>
+              <option value="paper">Papier-crayon</option>
+            </select>
+          </div>
+          <div class="s2h-grid__col--3 s2h-grid__col--md-6 s2h-grid__col--sm-12">
+            <label class="s2h-form__label">Niveau de validation</label>
+            <select class="s2h-form__select">
+              <option value="">Tous les niveaux</option>
+              <option value="high">Élevé (> 80%)</option>
+              <option value="medium">Moyen (50-80%)</option>
+              <option value="low">Faible (< 50%)</option>
+              <option value="experimental">Expérimental</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="s2h-grid">
+      <div class="s2h-grid__col--9 s2h-grid__col--md-12">
+        <div class="s2h-tabs s2h-mb-lg">
+          <div class="s2h-tabs__item s2h-tabs__item--active">Explorer les tests</div>
+          <div class="s2h-tabs__item">Tests populaires</div>
+          <div class="s2h-tabs__item">Récemment ajoutés</div>
+          <div class="s2h-tabs__item">Mes favoris</div>
+        </div>
+        
+        <h2 class="s2h-section-title s2h-mb-md">Explorer les tests</h2>
+        
+        <div class="s2h-card-grid">
+          <!-- Carte 1 -->
+          <a href="detail-test.html?id=testmem" class="s2h-card">
+            <div class="s2h-card__body">
+              <div class="s2h-flex s2h-flex-wrap s2h-flex-gap-xs s2h-mb">
+                <span class="s2h-badge s2h-badge--memory">Mémoire</span>
+                <span class="s2h-badge s2h-badge--web">Web</span>
+                <span class="s2h-badge s2h-badge--validated">Validé</span>
+              </div>
+              <h3 class="s2h-card__title">TestMem+</h3>
+              <p class="s2h-font-sm s2h-text-medium s2h-mb">Évaluation de la mémoire à court terme et de travail avec reconnaissance d'objets.</p>
+              <div class="s2h-score">
+                <span>Validation:</span>
+                <div class="s2h-score__indicator">
+                  <div class="s2h-score__dot s2h-score__dot--filled"></div>
+                  <div class="s2h-score__dot s2h-score__dot--filled"></div>
+                  <div class="s2h-score__dot s2h-score__dot--filled"></div>
+                  <div class="s2h-score__dot s2h-score__dot--filled"></div>
+                  <div class="s2h-score__dot"></div>
+                </div>
+              </div>
+              <div class="s2h-flex s2h-justify-between s2h-text-medium s2h-font-sm s2h-mt">
+                <span class="s2h-flex s2h-items-center s2h-flex-gap-xs">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+                  </svg>
+                  3,254 utilisateurs
+                </span>
+                <span class="s2h-flex s2h-items-center s2h-flex-gap-xs">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4.414a1 1 0 0 0-.707.293L.854 15.146A.5.5 0 0 1 0 14.793V2zm5 4a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                  </svg>
+                  42 avis
+                </span>
+              </div>
+            </div>
+          </a>
+          
+          <!-- Carte 2 -->
+          <a href="detail-test.html?id=focuscheck" class="s2h-card">
+            <div class="s2h-card__body">
+              <div class="s2h-flex s2h-flex-wrap s2h-flex-gap-xs s2h-mb">
+                <span class="s2h-badge s2h-badge--attention">Attention</span>
+                <span class="s2h-badge s2h-badge--vr">VR</span>
+                <span class="s2h-badge s2h-badge--testing">En test</span>
+              </div>
+              <h3 class="s2h-card__title">FocusCheck VR</h3>
+              <p class="s2h-font-sm s2h-text-medium s2h-mb">Test d'attention soutenue en environnement virtuel avec distracteurs variables.</p>
+              <div class="s2h-score">
+                <span>Validation:</span>
+                <div class="s2h-score__indicator">
+                  <div class="s2h-score__dot s2h-score__dot--filled"></div>
+                  <div class="s2h-score__dot s2h-score__dot--filled"></div>
+                  <div class="s2h-score__dot s2h-score__dot--filled"></div>
+                  <div class="s2h-score__dot"></div>
+                  <div class="s2h-score__dot"></div>
+                </div>
+              </div>
+              <div class="s2h-flex s2h-justify-between s2h-text-medium s2h-font-sm s2h-mt">
+                <span class="s2h-flex s2h-items-center s2h-flex-gap-xs">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+                  </svg>
+                  1,876 utilisateurs
+                </span>
+                <span class="s2h-flex s2h-items-center s2h-flex-gap-xs">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4.414a1 1 0 0 0-.707.293L.854 15.146A.5.5 0 0 1 0 14.793V2zm5 4a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                  </svg>
+                  28 avis
+                </span>
+              </div>
+            </div>
+          </a>
+          
+          <!-- Carte 3 -->
+          <a href="detail-test.html?id=fluverbal" class="s2h-card">
+            <div class="s2h-card__body">
+              <div class="s2h-flex s2h-flex-wrap s2h-flex-gap-xs s2h-mb">
+                <span class="s2h-badge s2h-badge--language">Langage</span>
+                <span class="s2h-badge s2h-badge--web">Web</span>
+                <span class="s2h-badge s2h-badge--validated">Validé</span>
+              </div>
+              <h3 class="s2h-card__title">Fluverbal</h3>
+              <p class="s2h-font-sm s2h-text-medium s2h-mb">Évaluation de la fluence verbale et du traitement sémantique avec adaptation automatique.</p>
+              <div class="s2h-score">
+                <span>Validation:</span>
+                <div class="s2h-score__indicator">
+                  <div class="s2h-score__dot s2h-score__dot--filled"></div>
+                  <div class="s2h-score__dot s2h-score__dot--filled"></div>
+                  <div class="s2h-score__dot s2h-score__dot--filled"></div>
+                  <div class="s2h-score__dot s2h-score__dot--filled"></div>
+                  <div class="s2h-score__dot s2h-score__dot--filled"></div>
+                </div>
+              </div>
+              <div class="s2h-flex s2h-justify-between s2h-text-medium s2h-font-sm s2h-mt">
+                <span class="s2h-flex s2h-items-center s2h-flex-gap-xs">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+                  </svg>
+                  4,120 utilisateurs
+                </span>
+                <span class="s2h-flex s2h-items-center s2h-flex-gap-xs">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4.414a1 1 0 0 0-.707.293L.854 15.146A.5.5 0 0 1 0 14.793V2zm5 4a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                  </svg>
+                  65 avis
+                </span>
+              </div>
+            </div>
+          </a>
+          
+          <!-- Carte 4 -->
+          <a href="detail-test.html?id=cogniscan" class="s2h-card">
+            <div class="s2h-card__body">
+              <div class="s2h-flex s2h-flex-wrap s2h-flex-gap-xs s2h-mb">
+                <span class="s2h-badge s2h-badge--cognitive">Cognitif</span>
+                <span class="s2h-badge s2h-badge--mobile">Mobile</span>
+                <span class="s2h-badge s2h-badge--beta">Version bêta</span>
+              </div>
+              <h3 class="s2h-card__title">CogniScan Mobile</h3>
+              <p class="s2h-font-sm s2h-text-medium s2h-mb">Batterie de tests cognitifs pour smartphone avec suivi longitudinal des performances.</p>
+              <div class="s2h-score">
+                <span>Validation:</span>
+                <div class="s2h-score__indicator">
+                  <div class="s2h-score__dot s2h-score__dot--filled"></div>
+                  <div class="s2h-score__dot s2h-score__dot--filled"></div>
+                  <div class="s2h-score__dot"></div>
+                  <div class="s2h-score__dot"></div>
+                  <div class="s2h-score__dot"></div>
+                </div>
+              </div>
+              <div class="s2h-flex s2h-justify-between s2h-text-medium s2h-font-sm s2h-mt">
+                <span class="s2h-flex s2h-items-center s2h-flex-gap-xs">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+                  </svg>
+                  2,310 utilisateurs
+                </span>
+                <span class="s2h-flex s2h-items-center s2h-flex-gap-xs">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4.414a1 1 0 0 0-.707.293L.854 15.146A.5.5 0 0 1 0 14.793V2zm5 4a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                  </svg>
+                  12 avis
+                </span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+      
+      <!-- Container pour la sidebar -->
+      <div id="sidebar-container" class="s2h-grid__col--3 s2h-grid__col--md-12"></div>
+    </div>
+  </main>
+  
+  <!-- Container pour le footer -->
+  <div id="footer-container"></div>
+
+  <!-- Script spécifique à la page Explorer -->
+  <script src="../../assets/js/pages/explorer.js"></script>
+</body>
+</html>
